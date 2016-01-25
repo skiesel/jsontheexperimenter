@@ -1,0 +1,217 @@
+{
+	"Name" : "Experiment1",
+
+	"CommentPrefix" : "# ",
+
+	"Executable" : "MoreMotionPlanning",
+
+	"OutputFile" : "NUMBERED",
+
+	"OutputDirectory" : "data",
+	
+	"CommandFormatPrefix" : "export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:build",
+
+	"CommandFormat" : {
+		"Format" : "%v; printf \"%v Output ? %v/%v\" | %v",
+		"Args" : [ "CommandFormatPrefix", "Args", "OutputDirectory", "OutputFile", "Executable" ]
+	},
+
+	"Args" : {
+		"Timeout" : {
+			"Format" : "Timeout ? %g\\n",
+			"Value" : 600
+		},
+
+		"Memory" : {
+			"Format" : "Memory ? %g\\n",
+			"Value" : 1000
+		},
+
+		"Runs" : {
+			"Format" : "Runs ? %v\\n",
+			"Value" : 1
+		},
+
+		"Seed" : {
+			"Format" : "Seed ? %v\\n",
+			"Value" : {
+				"Min" : 1,
+				"Max" : 25,
+				"Increment" : 1
+			}
+		},
+
+		"Domains" : {
+			"Format" : "Domain ? %v\\n",
+			"Value" : [
+				{ "Value" : "Blimp"},
+				{ "Value" : "Quadrotor"},
+				{
+					"Value" : "KinematicCar",
+					"Args" :{
+						"CarMap" : {
+							"Format" : "CarMap ? %v\\n",
+							"Value" : [ "Polygon", "Maze", "UniqueMaze", "Barriers", "Effort" , "Effort2"]
+						}
+					}
+				},
+				{
+					"Value" : "DynamicCar",
+					"Args" : {
+						"Map" : {
+							"Format" : "CarMap ? %v\\n",
+							"Value" : [ "Polygon", "Maze", "UniqueMaze", "Barriers", "Effort" , "Effort2"]
+						}
+					}
+
+				}
+			]
+		},
+
+		"Planners" : {
+			"Format" : "Planner ? %v\\n",
+			"Value" : [
+				{ "Value" :  "RRT" },
+				{ "Value" :  "KPIECE" },
+				{ "Value" :  "SyclopRRT" },
+				{ "Value" :  "SyclopEST" },
+				{ "Value" :  "PDST" },
+				{ "Value" :  "SST" },
+				{
+					"Value" : "FBiasedShell",
+					"Args" : {
+						"Omega" : {
+							"Format" : "Omega ? %v\\n",
+							"Value" : 8
+						},
+						"StateRadius" : {
+							"Format" : "StateRadius ? %v\\n",
+							"Value" : 2
+						}
+					}
+				},
+				{
+					"Value" : "FBiasedShellRRT",
+					"Args" : {
+						"Omega" : {
+							"Format" : "Omega ? %v\\n",
+							"Value" : 8
+						},
+						"StateRadius" : {
+							"Format" : "StateRadius ? %v\\n",
+							"Value" : 2
+						},
+						"ShellPreference" : {
+							"Format" : "ShellPreference ? %v\\n",
+							"Value" : 0.85
+						},
+						"ShellRadius" : {
+							"Format" : "ShellRadius ? %v\\n",
+							"Value" : 5
+						}
+					}
+				},
+				{
+					"Value" : "PlakuRRT",
+					"Args" : {
+						"StateRadius" : {
+							"Format" : "StateRadius ? %v\\n",
+							"Value" : 2
+						},
+						"Alpha" : {
+							"Format" : "Alpha ? %v\\n",
+							"Value" : 0.85
+						},
+						"B" : {
+							"Format" : "B ? %v\\n",
+							"Value" : 5
+						}
+					}
+				},
+				{
+					"Value" : "BestFirst",
+					"Args" : {
+						"WhichBestFirst" : {
+							"Format" : "WhichBestFirst ? %v\\n",
+							"Value" : [
+								{
+									"Value" : "Dijkstra",
+									"Args" : {
+										"PeekPenalty" : {
+											"Format" : "PeekPenalty ? %v\\n",
+											"Value" : 1.01
+										},
+										"RandomProbability" : {
+											"Format" : "RandomProbability ? %v\\n",
+											"Value" : 0.01
+										}
+									}
+								},
+								{
+									"Value" : "A*",
+									"Args" : {
+										"PeekPenalty" : {
+											"Format" : "PeekPenalty ? %v\\n",
+											"Value" : 1.01
+										},
+										"RandomProbability" : {
+											"Format" : "RandomProbability ? %v\\n",
+											"Value" : 0.01
+										},
+										"Weight" : {
+											"Format" : "Weight ? %v\\n",
+											"Value" : [1.0, 1.1, 1.2, 1.5, 2.0]
+										}
+									}
+								},
+								{
+									"Value" : "Greedy",
+									"Args" : {
+										"PeekPenalty" : {
+											"Format" : "PeekPenalty ? %v\\n",
+											"Value" : 1.01
+										},
+										"RandomProbability" : {
+											"Format" : "RandomProbability ? %v\\n",
+											"Value" : 0.01
+										}
+									}
+								},
+								{
+									"Value" : "Speedy",
+									"Args" : {
+										"PeekPenalty" : {
+											"Format" : "PeekPenalty ? %v\\n",
+											"Value" : 1.01
+										},
+										"RandomProbability" : {
+											"Format" : "RandomProbability ? %v\\n",
+											"Value" : 0.01
+										}
+									}
+								},
+								{
+									"Value" : "EES",
+									"Args" : {
+										"PeekPenalty" : {
+											"Format" : "PeekPenalty ? %v\\n",
+											"Value" : 1.01
+										},
+										"RandomProbability" : {
+											"Format" : "RandomProbability ? %v\\n",
+											"Value" : 0.01
+										},
+										"Weight" : {
+											"Format" : "Weight ? %v\\n",
+											"Value" : [1.0, 1.1, 1.2, 1.5, 2.0]
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			]
+		}
+	}
+}
