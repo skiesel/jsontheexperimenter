@@ -18,12 +18,12 @@
 
 	"Args" : {
 		"Timeout" : {
-			"Format" : "Timeout ? %g\\n",
+			"Format" : "Timeout ? %v\\n",
 			"Value" : 600
 		},
 
 		"Memory" : {
-			"Format" : "Memory ? %g\\n",
+			"Format" : "Memory ? %v\\n",
 			"Value" : 1000
 		},
 
